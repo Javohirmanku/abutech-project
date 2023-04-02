@@ -1,0 +1,11 @@
+.MuiPaper-root:nth-child(1){
+    background-color: #cbcccf;
+}
+.test{
+    height: 100vh;
+    background-size: cover;
+    width: 100%;
+}
+.bgcolor{
+    background-color: rgb(80, 121, 245)!important;
+}

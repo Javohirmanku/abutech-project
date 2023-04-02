@@ -1,25 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import {Routes, Route} from 'react-router-dom';
+import Login from "./pages/Login";
+import {Main} from "./pages/Main";
+import React, {useEffect, useState} from "react";
+import LinearProgress from '@mui/material/LinearProgress';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [loading, setLoading] = useState(false);
+    const [isAuth, setIsAuth] = useState(false);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) setIsAuth(true)
+    },[])
+
+    return isAuth ? (
+        <Routes>
+            <Route path="/main" element={<Main/>}/>
+            <Route path="*" element={<Main to="/main"/>}/>
+        </Routes>
+    ) : (<Routes>
+        <Route path="/login" element={<Login setLoading={setLoading} loading={loading} setIsAuth={setIsAuth}/>}/>
+        <Route path="*" element={<Login to="/login" setLoading={setLoading} loading={loading} setIsAuth={setIsAuth}/>}/>
+    </Routes>);
 }
 
 export default App;
